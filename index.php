@@ -1,55 +1,6 @@
 <?php
-$hotels = [
-
-    [
-        'name' => 'Hotel Belvedere',
-        'description' => 'Hotel Belvedere Descrizione',
-        'parking' => true,
-        'vote' => 4,
-        'distance_to_center' => 10.4
-    ],
-    [
-        'name' => 'Hotel Futuro',
-        'description' => 'Hotel Futuro Descrizione',
-        'parking' => true,
-        'vote' => 2,
-        'distance_to_center' => 2
-    ],
-    [
-        'name' => 'Hotel Rivamare',
-        'description' => 'Hotel Rivamare Descrizione',
-        'parking' => false,
-        'vote' => 1,
-        'distance_to_center' => 1
-    ],
-    [
-        'name' => 'Hotel Bellavista',
-        'description' => 'Hotel Bellavista Descrizione',
-        'parking' => false,
-        'vote' => 5,
-        'distance_to_center' => 5.5
-    ],
-    [
-        'name' => 'Hotel Milano',
-        'description' => 'Hotel Milano Descrizione',
-        'parking' => true,
-        'vote' => 2,
-        'distance_to_center' => 50
-    ],
-
-];
-
-$filteredHotels = $hotels;
-if (isset($_GET['parking'])) {
-    $filteredHotels = array_filter($filteredHotels, function ($hotel) {
-        return $hotel['parking'] == $_GET['parking'];
-    });
-}
-if (isset($_GET['min_vote'])) {
-    $filteredHotels = array_filter($filteredHotels, function ($hotel) {
-        return $hotel['vote'] >= $_GET['min_vote'];
-    });
-}
+include __DIR__ . '/Model/db.php';
+include __DIR__ . '/Model/functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -71,8 +22,8 @@ if (isset($_GET['min_vote'])) {
                         <label for="parking"></label>
                         <span class="input-group-text">Parcheggio</span>
                         <select class="form-control" id="parking" name="parking">
-                            <option value="">All</option>
-                            <option value="1">Yes</option>
+                            <option value="">Tutti</option>
+                            <option value="1">Sì</option>
                             <option value="0">No</option>
                         </select>
                     </div>
@@ -86,11 +37,11 @@ if (isset($_GET['min_vote'])) {
                 <table class="table mt-4">
                     <thead>
                         <tr class="table-danger">
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Parking</th>
-                            <th>Vote</th>
-                            <th>Distance to Center</th>
+                            <th>Nome</th>
+                            <th>Descrizione</th>
+                            <th>Parcheggio</th>
+                            <th>Voto</th>
+                            <th>Distanza dal Centro</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,7 +49,7 @@ if (isset($_GET['min_vote'])) {
                             <tr class="table-light">
                                 <td><?php echo $hotel['name'] ?></td>
                                 <td><?php echo $hotel['description'] ?></td>
-                                <td><?php echo $hotel['parking'] ? 'Yes' : 'No' ?></td>
+                                <td><?php echo $hotel['parking'] ? 'Sì' : 'No' ?></td>
                                 <td><?php echo $hotel['vote'] ?></td>
                                 <td><?php echo $hotel['distance_to_center'] ?> km</td>
                             </tr>
