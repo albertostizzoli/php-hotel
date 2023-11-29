@@ -1,5 +1,5 @@
 <?php
-  $hotels = [
+$hotels = [
 
     [
         'name' => 'Hotel Belvedere',
@@ -39,7 +39,6 @@
 
 ];
 
-
 ?>
 
 <!DOCTYPE html>
@@ -48,10 +47,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>PHP Hotel</title>
 </head>
 <body>
-
+    <h1 class="text-center text-bg-danger">PHP HOTEL</h1>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr class="table-danger">
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Parking</th>
+                            <th>Vote</th>
+                            <th>Distance to Center</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($hotels as $hotel) { ?>
+                            <tr class="table-light">
+                                <td><?php echo $hotel['name'] ?></td>
+                                <td><?php echo $hotel['description'] ?></td>
+                                <td><?php echo $hotel['parking'] ? 'Yes' : 'No' ?></td>
+                                <td><?php echo $hotel['vote'] ?></td>
+                                <td><?php echo $hotel['distance_to_center'] ?> km</td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
