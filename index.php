@@ -39,6 +39,17 @@ $hotels = [
 
 ];
 
+$filteredHotels = $hotels;
+if (isset($_GET['parking'])) {
+    $filteredHotels = array_filter($filteredHotels, function ($hotel) {
+        return $hotel['parking'] == $_GET['parking'];
+    });
+}
+if (isset($_GET['min_vote'])) {
+    $filteredHotels = array_filter($filteredHotels, function ($hotel) {
+        return $hotel['vote'] >= $_GET['min_vote'];
+    });
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +66,24 @@ $hotels = [
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
-                <table class="table">
+                <form method="GET" action="index.php">
+                    <div class="input-group mt-4">
+                        <label for="parking"></label>
+                        <span class="input-group-text">Parcheggio</span>
+                        <select class="form-control" id="parking" name="parking">
+                            <option value="">All</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="input-group mt-4">
+                        <label for="min_vote"></label>
+                        <span class="input-group-text">Voto</span>
+                        <input type="number" class="form-control" id="min_vote" name="min_vote" min="1" max="5">
+                    </div>
+                    <button type="submit" class="btn btn-danger mt-3">Filtra</button>
+                </form>
+                <table class="table mt-4">
                     <thead>
                         <tr class="table-danger">
                             <th>Name</th>
@@ -66,7 +94,7 @@ $hotels = [
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($hotels as $hotel) { ?>
+                        <?php foreach ($filteredHotels as $hotel) { ?>
                             <tr class="table-light">
                                 <td><?php echo $hotel['name'] ?></td>
                                 <td><?php echo $hotel['description'] ?></td>
